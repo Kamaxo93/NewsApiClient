@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface NewRepository {
-    suspend fun getNewsHeadlines(): Resource<APIResponse>
+    suspend fun getNewsHeadlines(country: String, page: Int): Resource<APIResponse>
 
     suspend fun getSearchedNews(searQuery: String): Resource<APIResponse>
 
@@ -21,8 +21,8 @@ interface NewRepository {
 
 class NewRepositoryImpl(private val remoteDataSource: NewsRemoteDataSource) : NewRepository {
 
-    override suspend fun getNewsHeadlines(): Resource<APIResponse> =
-        responseToResource(remoteDataSource.getTopHeadlines())
+    override suspend fun getNewsHeadlines(country: String, page: Int): Resource<APIResponse> =
+        responseToResource(remoteDataSource.getTopHeadlines(country, page))
 
     override suspend fun getSearchedNews(searQuery: String): Resource<APIResponse> {
         TODO("Not yet implemented")
